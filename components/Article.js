@@ -114,3 +114,79 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+const articles = document.querySelector('.articles');
+
+function articleMaker(articleObj){
+  //instantiating the elements
+  const article = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const paragraph1 = document.createElement('p');
+  const paragraph2 = document.createElement('p');
+  const paragraph3 = document.createElement('p');
+  const articleSpan = document.createElement('span');
+
+  //setup the structure
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(paragraph1);
+  article.appendChild(paragraph2);
+  article.appendChild(paragraph3);
+  article.appendChild(articleSpan);
+
+  //adding the classes
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  articleSpan.classList.add('expandButton')
+
+  //set text content using arguments as raw material
+  articleTitle.textContent = articleObj.title;
+  articleDate.textContent = articleObj.date;
+  paragraph1.textContent = articleObj.firstParagraph;
+  paragraph2.textContent = articleObj.secondParagraph;
+  paragraph3.textContent = articleObj.thirdParagraph;
+  articleSpan.textContent = '+';
+
+  //add event listener to the span.expandButton
+  articleSpan.addEventListener('click', function(event){
+    article.classList.toggle('article-open');
+  })
+
+  //return the article
+  return article;
+}
+
+// const test = articleMaker({
+//   title: "Homeboy Diaries",
+//   date: "1/2/3000",
+//   firstParagraph: "i like pie",
+//   secondParagraph: "i like pizza",
+//   thirdParagraph: "i like ice cream"
+// })
+
+//console.log(test);
+
+
+
+//Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
+//Refresh the page to see the new article.
+
+data.push({
+  title: "Homeboy Diaries",
+  date: "January 4th, 3000",
+  firstParagraph: "i like pie",
+  secondParagraph: "i like pizza",
+  thirdParagraph: "i like ice cream"
+});
+
+//Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
+//to create a div.article element and append it to the DOM inside div.articles (see index.html).
+
+const articleElements = data.map((articleObj) => {
+  return articleMaker(articleObj);
+})
+
+articleElements.forEach(articleElement => {
+  articles.appendChild(articleElement);
+})
